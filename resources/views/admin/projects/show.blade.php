@@ -11,9 +11,19 @@
             <div class="placeholder p-5 bg-dark">No Image</div>
             @endif
             <h1>{{$project->title}}</h1>
-            <div class="category">
+            <div class="type">
                 <strong>Type:</strong>
                 {{ $project->type ? $project->type->name : 'No type'}}
+            </div>
+            <div class="technologies">
+                <strong>Technologies:</strong>
+                @if(count($project->$technologies) > 0)
+                @foreach($project->technologies as $technology)
+                <span>#{{$technology->name}}</span>
+                @endforeach
+                @else
+                <span>Not technologies in current project.</span>
+                @endif
             </div>
             <p>{{$project->description}}</p>
         </div>

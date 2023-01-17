@@ -46,6 +46,24 @@
                 {{$message}}
             </div>
             @enderror
+
+            <div class="mb-3">
+                <label for="technologies" class="form-label">Technologies</label>
+                <select name="technologies[]" id="technologies" class="form-select" size="3" aria-describedby="technologiesHelpId">
+                    <option value="" disabled>Select Technology</option>
+                    @forelse($technologies as $technology)
+                    @if($errors->any())
+                    <option value="{{$technology_id}} {{in_array($technology->id, old('technologies', []))}}">{{$technology->name}}</option>                        
+                    @else
+                    <option value="{{$technology_id}}" {{$project->technologies->contains($technology->id) ? 'selected' : ''</option>}}>{{$technology->name}}</option>
+                    @endif
+                    @empty
+                    <option value="" disabled>No technologies</option>  
+                    @endforelse
+                </select>
+                <small id="technologiesHelpId" class="text-muted">Press Ctrl+C for deselect.</small>
+            </div>
+
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
                 <input type="text" name="description" id="description" class="form-control @error('description') is-invalid @enderror" placeholder="description here" aria-describedby="descriptionHelpId" value="{{old('description', $project->description)}}">

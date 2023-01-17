@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdateTypeRequest;
+use App\Http\Requests\StoreTypeRequest;
+use App\Models\Project;
+use Illuminate\Support\Str;
 
 class TypeController extends Controller
 {
@@ -15,7 +19,9 @@ class TypeController extends Controller
      */
     public function index()
     {
-        //
+        $types = Type::orderByDesc('id')->get();
+        //dd($types);
+        return view('admin.types.index', compact('types'));
     }
 
     /**
@@ -34,9 +40,15 @@ class TypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTypeRequest $request)
     {
-        //
+        $val_data = $request->validated();
+        $type_slug =  Type::generateSlug($val_data['name']);
+        $val_data['slug'] = $type_slug;
+
+        Type::create($val_data);
+
+        return to_route('admin.types.index')->with('message', "Type added successfully!");
     }
 
     /**

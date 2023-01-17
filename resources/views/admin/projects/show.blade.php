@@ -17,7 +17,7 @@
             </div>
             <div class="technologies">
                 <strong>Technologies:</strong>
-                @if(count($project->$technologies) > 0)
+                @if(count($project->technologies) > 0)
                 @foreach($project->technologies as $technology)
                 <span>#{{$technology->name}}</span>
                 @endforeach

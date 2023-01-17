@@ -11,7 +11,7 @@
             @method('PUT')
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror" placeholder="title here" aria-describedby="titleHelpId" value="{{old('title', $project->title)}}">
+                <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror" placeholder="Title here" aria-describedby="titleHelpId" value="{{old('title', $project->title)}}">
                 <small id="titleHelpId" class="text-muted">Add project title here, max 100 characters.</small>
             </div>
             @error('title')
@@ -49,13 +49,13 @@
 
             <div class="mb-3">
                 <label for="technologies" class="form-label">Technologies</label>
-                <select name="technologies[]" id="technologies" class="form-select" size="3" aria-describedby="technologiesHelpId">
+                <select name="technologies[]" id="technologies" class="form-select w-25" size="3" aria-describedby="technologiesHelpId">
                     <option value="" disabled>Select Technology</option>
                     @forelse($technologies as $technology)
                     @if($errors->any())
-                    <option value="{{$technology_id}} {{in_array($technology->id, old('technologies', []))}}">{{$technology->name}}</option>                        
+                    <option value="{{$technology->id}} {{in_array($technology->id, old('technologies', []))}}">{{$technology->name}}</option>                        
                     @else
-                    <option value="{{$technology_id}}" {{$project->technologies->contains($technology->id) ? 'selected' : ''</option>}}>{{$technology->name}}</option>
+                    <option value="{{$technology->id}}" {{$project->technologies->contains($technology->id) ? 'selected' : ''}}></option>{{$technology->name}}</option>
                     @endif
                     @empty
                     <option value="" disabled>No technologies</option>  

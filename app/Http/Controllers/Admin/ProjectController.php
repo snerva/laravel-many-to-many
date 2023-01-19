@@ -120,7 +120,7 @@ class ProjectController extends Controller
             $project->technologies()->sync([]);
         }
 
-        return to_route('admin.projects.index')->with('message', "Project updated successfully!");
+        return to_route('admin.projects.index')->with('message', "Project: $project->title updated successfully!");
     }
 
     /**
@@ -136,6 +136,6 @@ class ProjectController extends Controller
         }
         $project->delete();
 
-        return to_route('admin.projects.index')->with('message', "Project deleted successfully!");
+        return to_route('admin.projects.index')->with('message', "Project: $project->title deleted successfully!");
     }
 }

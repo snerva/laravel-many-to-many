@@ -26,16 +26,16 @@
                 <td scope="row">{{$project->id}}</td>
                 <td>
                     @if($project->cover_image)
-                    <img width="140" class="img-fluid" src="{{asset('storage/' . $project->cover_image)}}" alt="">
+                    <img width="100" class="img-fluid" src="{{asset('storage/' . $project->cover_image)}}" alt="">
                     @else
-                    <div class="placeholder p-5 bg-dark d-flex align-items-center justify-content-center" style="width:140px">No Image</div>
+                    <div class="placeholder p-5 bg-dark d-flex align-items-center justify-content-center" style="width:100px">No Image</div>
                     @endif
                 </td>
                 <td>{{$project->title}}</td>
                 <td>{{$project->slug}}</td>
                 <td>{{$project->description}}</td>
 
-                <td class="d-flex flex-column gap-2">
+                <td class="d-flex flex-column">
                     <a href="{{route('admin.projects.show', $project->slug)}}" class="btn btn-outline-primary view" role="button">
                         <i class="fas fa-eye"></i>
                     </a>

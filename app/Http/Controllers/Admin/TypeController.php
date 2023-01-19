@@ -19,7 +19,7 @@ class TypeController extends Controller
      */
     public function index()
     {
-        $types = Type::orderByDesc('id')->get();
+        $types = Type::all();
         //dd($types);
         return view('admin.types.index', compact('types'));
     }
@@ -31,7 +31,6 @@ class TypeController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -43,12 +42,11 @@ class TypeController extends Controller
     public function store(StoreTypeRequest $request)
     {
         $val_data = $request->validated();
-        $type_slug =  Type::generateSlug($val_data['name']);
-        $val_data['slug'] = $type_slug;
+        $val_data['slug'] = Str::slug($request->name);
 
-        Type::create($val_data);
+        $type = Type::create($val_data);
 
-        return to_route('admin.types.index')->with('message', "Type added successfully!");
+        return back()->with('message', "Type $type->slug added successfully!");
     }
 
     /**
@@ -70,7 +68,8 @@ class TypeController extends Controller
      */
     public function edit(Type $type)
     {
-        //
+        $types = Type::all();
+        return view('admin.types.edit', compact('type', 'types'));
     }
 
     /**
@@ -82,7 +81,12 @@ class TypeController extends Controller
      */
     public function update(Request $request, Type $type)
     {
-        //
+        $val_data = $request->validated();
+        $val_data['slug'] = Str::slug($request->name);
+
+        $type->update($val_data);
+
+        return to_route('admin.types.index')->with('message', "Type: $type->name updated successfully!");
     }
 
     /**
@@ -93,6 +97,7 @@ class TypeController extends Controller
      */
     public function destroy(Type $type)
     {
-        //
+        $type->delete();
+        return redirect()->route('admin.types.index')->with('message', "Type: $type->name deleted successfully!");
     }
 }
